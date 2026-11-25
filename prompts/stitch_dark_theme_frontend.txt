@@ -1,0 +1,89 @@
+Design a component-based dark theme web app UI for "BiteRank" — an LLM-powered Zomato restaurant recommendation tool.
+
+PLATFORM: Web app, desktop-first, responsive down to mobile.
+AUDIENCE: Food lovers who want fast, personalized restaurant picks with clear AI explanations.
+PRIMARY GOAL: Let the user set preferences and get a ranked shortlist of real restaurants with explanations — one clear flow, not a dashboard.
+
+VISUAL DIRECTION:
+- Strict dark theme throughout (never light mode).
+- Mood: modern food-tech, editorial, high contrast, calm — not neon cyberpunk, not purple gradients, not glassy purple SaaS.
+- Accent: warm Zomato-inspired coral/red for primary actions and rating highlights only.
+- Surfaces: deep charcoal background, slightly elevated panels, soft 1px borders, restrained shadows.
+- Typography: distinctive sans for UI labels; readable body text; strong hierarchy for restaurant names.
+- Imagery: real food / dining atmosphere as a subtle full-bleed hero or header backdrop (desaturated so text stays readable). No floating badges or promo stickers on imagery.
+- Motion: subtle — preference panel fade-in, result cards stagger on load, primary button press feedback. No heavy parallax.
+
+COMPONENT SYSTEM (design every screen from these reusable components):
+1. AppShell — sticky top bar + main content canvas + optional slim footer
+2. BrandMark — wordmark "BiteRank" with small fork/plate icon mark
+3. NavBar — BrandMark left; text links: Recommend | About; no auth clutter
+4. PreferenceForm — labeled fields in a single column (desktop: form left ~40%, results right ~60%)
+5. TextField — location, cuisine, additional preferences
+6. SelectField — budget: Low / Medium / High
+7. RatingSlider — minimum rating 0–5, step 0.1, default 4.0
+8. PrimaryButton — "Get recommendations" (full-width on mobile)
+9. SecondaryButton — "Clear filters"
+10. SummaryBanner — one short AI summary paragraph above results
+11. RestaurantCard — rank badge, restaurant name, cuisine tags, star rating, cost-for-two, AI explanation text
+12. ResultsList — vertical stack of RestaurantCards (ranked 1…N)
+13. EmptyState — illustration + message when filters match nothing + tip to loosen filters
+14. ErrorBanner — validation or API failure message, non-blocking
+15. LoadingState — skeleton RestaurantCards + "Ranking matches…" label
+16. FallbackChip — small label "Ranked by rating (AI unavailable)" when fallback path is used
+17. TagChip — cuisine / budget / soft-preference chips
+18. SectionHeader — title + one supporting sentence
+
+SCREENS TO GENERATE:
+
+=== SCREEN 1: Recommend (main app) ===
+Page goal: Submit preferences and review ranked recommendations.
+
+PAGE STRUCTURE:
+1. NavBar with BrandMark and links.
+2. Page header: SectionHeader — title "Find your next table", supporting sentence "Filter by what matters, then let AI rank and explain real Zomato matches."
+3. Two-column layout on desktop:
+   LEFT — PreferenceForm inside an elevated panel:
+   - TextField: Location (placeholder "e.g. Bangalore, Koramangala")
+   - SelectField: Budget (Low / Medium / High)
+   - TextField: Cuisine (placeholder "e.g. Italian, North Indian")
+   - RatingSlider: Minimum rating
+   - TextField (multiline): Additional preferences (placeholder "e.g. family-friendly, quiet, date night")
+   - PrimaryButton "Get recommendations" + SecondaryButton "Clear filters"
+   RIGHT — Results area:
+   - Default idle: soft empty prompt "Your shortlist will appear here"
+   - After submit (success): SummaryBanner + ResultsList of 5–8 RestaurantCards
+4. Each RestaurantCard shows:
+   - Rank number (1, 2, 3…)
+   - Name (dominant)
+   - Cuisine TagChips
+   - Rating with coral accent stars
+   - Estimated cost for two
+   - 1–2 sentence AI explanation
+5. Include component variants for: LoadingState, EmptyState, ErrorBanner, FallbackChip.
+
+Sample success content:
+- Summary: "Here are family-friendly Italian picks in Bangalore within a medium budget."
+- Card 1: Truffles · Cafe, American, Burger · 4.5 · ₹900 · "Strong rating and casual setting that fits a family outing on a medium budget."
+- Card 2: Absolute Barbecues · North Indian, BBQ · 4.4 · ₹1200 · "Great for groups; matches your budget and preference for a lively shared meal."
+
+=== SCREEN 2: Empty / No matches ===
+Same shell and PreferenceForm. Results area shows EmptyState:
+- Title: "No restaurants matched"
+- Body: "Try a broader location, a lower minimum rating, or a different cuisine."
+- SecondaryButton: "Relax filters"
+
+=== SCREEN 3: About (simple) ===
+NavBar + SectionHeader "How BiteRank works" + three short vertical steps (not cards-as-decoration; simple numbered rows):
+1. You set hard preferences (location, budget, cuisine, rating)
+2. We filter real Zomato rows first
+3. An LLM ranks the shortlist and explains why each pick fits
+Footer line: "Recommendations are grounded in dataset restaurants — never invented."
+
+CONSTRAINTS:
+- Component-based: every UI piece should look reusable (consistent padding, radius, borders).
+- One primary CTA per screen.
+- No sidebar dashboard chrome, no KPI stat strips, no maps, no auth walls.
+- Dark theme only; coral/red used sparingly for CTA and ratings.
+- Accessible contrast for body text and form labels on dark surfaces.
+- Mobile: stack form above results; buttons full-width; cards single column.
+- Show realistic placeholder copy, not lorem ipsum.

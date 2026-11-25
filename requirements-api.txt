@@ -1,0 +1,7 @@
+# Lean API deps for Railway (no Streamlit / HF download tooling).
+pandas>=2.2.0
+pyarrow>=15.0.0
+python-dotenv>=1.0.1
+groq>=0.11.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0

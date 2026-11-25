@@ -1,0 +1,28 @@
+User preferences (JSON):
+{{preferences_json}}
+
+Candidate restaurants (JSON array). Use each item's "id" when ranking:
+{{candidates_json}}
+
+Task:
+1. Rank the best matches for these preferences (best first).
+2. Explain each choice in 1-2 plain sentences that reference the user's preferences.
+3. Provide a short overall summary.
+
+Return ONLY valid JSON with this schema:
+{
+  "summary": "string",
+  "recommendations": [
+    {
+      "id": "string (must match a candidate id)",
+      "rank": 1,
+      "explanation": "string"
+    }
+  ]
+}
+
+Constraints:
+- Include at most {{max_recommendations}} recommendations.
+- Every "id" MUST appear in the candidate list.
+- Do not change restaurant facts; the application will fill name/cuisine/rating/cost from the dataset.
+- If soft preferences conflict with hard filters, still rank from candidates and note the tradeoff briefly.

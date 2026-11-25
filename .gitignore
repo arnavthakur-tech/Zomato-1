@@ -1,0 +1,51 @@
+# Secrets & local env
+.env
+.env.local
+web/.env.local
+*.pem
+
+# Frontend build / deps (also covered by web/.gitignore)
+web/node_modules/
+web/.next/
+web/out/
+web/.vercel/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Data caches (keep folder structure via .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+# Ship cleaned table with the API so Railway can serve without HF download
+!data/processed/restaurants.parquet
+!data/processed/restaurants.csv
+
+
+# Hugging Face / datasets cache (if stored locally)
+.cache/
+*.arrow
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Logs / notebooks checkpoints
+*.log
+.ipynb_checkpoints/
