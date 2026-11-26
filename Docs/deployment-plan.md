@@ -74,8 +74,9 @@ Do **not** commit `.env`, `web/.env.local`, or any real API keys.
 |---|---|
 | `requirements-api.txt` | Lean Python deps for Railway (no Streamlit / HF datasets) |
 | `Procfile` | `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT` |
-| `railway.toml` | Start + `/api/health` healthcheck (no custom `buildCommand`) |
-| `nixpacks.toml` | Python-only provider + `python -m pip install -r requirements-api.txt` |
+| `Dockerfile` | Reliable Railway image: Python 3.12 + `requirements-api.txt` |
+| `railway.toml` | `DOCKERFILE` builder + `/api/health` healthcheck |
+| `nixpacks.toml` | Fallback only (Railway uses Dockerfile now) |
 | `runtime.txt` | Python 3.12 pin |
 | `.env.example` | API + CORS variable template |
 | `web/.env.example` | `NEXT_PUBLIC_API_URL` template |
