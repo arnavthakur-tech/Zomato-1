@@ -13,7 +13,7 @@ RUN pip install --upgrade pip && pip install -r requirements-api.txt
 
 COPY . .
 
-# Railway injects PORT at runtime; keep a local default for smoke tests.
 EXPOSE 8000
 
-CMD ["sh", "-c", "exec uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Use Python entrypoint so PORT is read from env (avoids literal `$PORT` crashes).
+CMD ["python", "start.py"]

@@ -3,8 +3,7 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-# Let Dockerfile CMD start the app (handles $PORT via shell).
-# A bare `uvicorn ... --port $PORT` here can crash if $PORT is not expanded.
+startCommand = "python start.py"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"
