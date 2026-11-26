@@ -154,8 +154,8 @@ Ensure `data/processed/restaurants.parquet` exists locally (from `python scripts
 
 1. Push this repo to GitHub/GitLab.
 2. In [Railway](https://railway.app): **New Project → Deploy from GitHub** → select this repo.
-3. Railway should pick up `nixpacks.toml` / `Procfile` and start:
-   `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT`
+3. Railway should build with the `Dockerfile` and start:
+   `python start.py`
 4. In the service **Variables**, set at least:
 
 | Variable | Example |

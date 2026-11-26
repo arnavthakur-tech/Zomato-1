@@ -73,7 +73,7 @@ Do **not** commit `.env`, `web/.env.local`, or any real API keys.
 | File | Purpose |
 |---|---|
 | `requirements-api.txt` | Lean Python deps for Railway (no Streamlit / HF datasets) |
-| `Procfile` | `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT` |
+| `Procfile` / `start.py` | `python start.py` (reads `PORT` from env) |
 | `Dockerfile` | Reliable Railway image: Python 3.12 + `requirements-api.txt` |
 | `railway.toml` | `DOCKERFILE` builder + `/api/health` healthcheck |
 | `nixpacks.toml` | Fallback only (Railway uses Dockerfile now) |
@@ -121,10 +121,12 @@ Deploy **backend first**, then frontend, then lock CORS.
 
 1. Open Railway → **New Project** → **Deploy from GitHub** → select this repo.
 2. Confirm root is the repo root (not `web/`).
-3. Wait for first build. Start command should be:
+3. Wait for first build. Builder must be **Dockerfile**. Start command should be:
    ```text
-   uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+   python start.py
    ```
+   In Railway **Settings → Deploy**, clear any Custom Start Command that still contains
+   `uvicorn ... --port $PORT` (that literal `$PORT` crashes the container).
 4. **Variables** → add `LLM_API_KEY`, `LLM_MODEL`, and a temporary CORS value:
    ```text
    CORS_ORIGINS=http://localhost:3000

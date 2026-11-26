@@ -1,13 +1,11 @@
-# Force Python only — repo also contains Next.js under web/ for Vercel.
+# Fallback only — Railway should use Dockerfile (see railway.toml).
 providers = ["python"]
 
 [variables]
 NIXPACKS_PYTHON_VERSION = "3.12"
 
-# Override default `pip install -r requirements.txt` (full/local deps)
-# with the lean API requirements. Setup phase still creates /opt/venv.
 [phases.install]
 cmds = ["python -m pip install -r requirements-api.txt"]
 
 [start]
-cmd = "uvicorn src.api.main:app --host 0.0.0.0 --port $PORT"
+cmd = "python start.py"
