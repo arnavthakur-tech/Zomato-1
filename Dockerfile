@@ -11,9 +11,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY requirements-api.txt .
 RUN pip install --upgrade pip && pip install -r requirements-api.txt
 
+# Railway dashboard may still run `uvicorn ... --port $PORT` (literal).
+# Replace the uvicorn console script with a shim that reads env PORT.
+COPY scripts/uvicorn_port_shim.py /usr/local/bin/uvicorn
+RUN chmod +x /usr/local/bin/uvicorn
+
 COPY . .
 
 EXPOSE 8000
 
-# Use Python entrypoint so PORT is read from env (avoids literal `$PORT` crashes).
 CMD ["python", "start.py"]

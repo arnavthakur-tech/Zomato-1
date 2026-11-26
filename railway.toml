@@ -3,6 +3,8 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
+# Prefer start.py. If the Railway UI still overrides with
+# `uvicorn ... --port $PORT`, the Docker uvicorn shim fixes the literal.
 startCommand = "python start.py"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 100
